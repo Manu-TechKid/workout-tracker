@@ -168,9 +168,15 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.user = req.user;
   res.locals.isAuthenticated = req.isAuthenticated();
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
+  
+  // Handle flash messages properly
+  const success_msg = req.flash('success_msg');
+  const error_msg = req.flash('error_msg');
+  const error = req.flash('error');
+  
+  res.locals.success_msg = success_msg.length > 0 ? success_msg[0] : null;
+  res.locals.error_msg = error_msg.length > 0 ? error_msg[0] : null;
+  res.locals.error = error.length > 0 ? error[0] : null;
   
   // Debug logging for authentication issues
   if (req.path === '/auth/login' || req.path === '/workouts') {
@@ -188,8 +194,20 @@ app.get('/debug', (req, res) => {
     user: req.user ? { id: req.user._id, username: req.user.username } : null,
     isAuthenticated: req.isAuthenticated(),
     env: process.env.NODE_ENV,
-    hasGitHubCredentials: !!(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET)
+    hasGitHubCredentials: !!(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET),
+    flashMessages: {
+      success_msg: req.flash('success_msg'),
+      error_msg: req.flash('error_msg'),
+      error: req.flash('error')
+    }
   });
+});
+
+// Test route for flash messages
+app.get('/test-flash', (req, res) => {
+  req.flash('success_msg', 'This is a test success message');
+  req.flash('error_msg', 'This is a test error message');
+  res.redirect('/');
 });
 
 // Routes
