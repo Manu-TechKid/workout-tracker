@@ -12,13 +12,11 @@ const connectDB = async () => {
     // Use environment variables for database credentials
     const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/workout-tracker';
     
-    // Connection options for better reliability
+    // Connection options for better reliability (using only supported options)
     const options = {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-      bufferCommands: false,
-      bufferMaxEntries: 0
+      socketTimeoutMS: 45000
     };
     
     await mongoose.connect(mongoURI, options);
