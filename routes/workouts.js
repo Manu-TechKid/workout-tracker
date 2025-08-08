@@ -58,7 +58,7 @@ router.get('/', isAuthenticated, async (req, res) => {
       title: 'My Workouts - Workout Tracker',
       workouts,
       searchQuery,
-      success: req.flash('success'),
+      success: req.flash('success_msg'),
       error: req.flash('error')
     });
   } catch (error) {
@@ -103,7 +103,7 @@ router.post('/', isAuthenticated, async (req, res) => {
     });
     
     await workout.save();
-    req.flash('success', 'Workout added successfully!');
+    req.flash('success_msg', 'Workout added successfully!');
     res.redirect('/workouts');
     
   } catch (error) {
@@ -206,7 +206,7 @@ router.put('/:id', isAuthenticated, async (req, res) => {
       });
     }
     
-    req.flash('success', 'Workout updated successfully!');
+    req.flash('success_msg', 'Workout updated successfully!');
     res.redirect('/workouts');
     
   } catch (error) {
@@ -260,7 +260,7 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
       });
     }
     
-    req.flash('success', 'Workout deleted successfully!');
+    req.flash('success_msg', 'Workout deleted successfully!');
     res.redirect('/workouts');
     
   } catch (error) {

@@ -58,7 +58,7 @@ router.post('/register', isNotAuthenticated, async (req, res) => {
     
     await user.save();
     
-    req.flash('success', 'Registration successful! Please log in.');
+    req.flash('success_msg', 'Registration successful! Please log in.');
     res.redirect('/auth/login');
     
   } catch (error) {
@@ -73,7 +73,7 @@ router.get('/login', isNotAuthenticated, (req, res) => {
   res.render('auth/login', { 
     title: 'Login - Workout Tracker',
     error: req.flash('error'),
-    success: req.flash('success')
+    success: req.flash('success_msg')
   });
 });
 
@@ -126,7 +126,7 @@ router.get('/logout', (req, res) => {
     if (err) {
       console.error('Logout error:', err);
     }
-    req.flash('success', 'You have been logged out successfully.');
+    req.flash('success_msg', 'You have been logged out successfully.');
     res.redirect('/');
   });
 });
