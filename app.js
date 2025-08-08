@@ -152,7 +152,7 @@ app.use(session({
     mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/workout-tracker'
   }),
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production' && process.env.NODE_ENV !== 'development',
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
@@ -171,7 +171,25 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  
+  // Debug logging for authentication issues
+  if (req.path === '/auth/login' || req.path === '/workouts') {
+    console.log(`[${req.path}] User:`, req.user ? req.user.username : 'Not authenticated');
+    console.log(`[${req.path}] isAuthenticated:`, req.isAuthenticated());
+  }
+  
   next();
+});
+
+// Debug route for testing
+app.get('/debug', (req, res) => {
+  res.json({
+    message: 'Application is running',
+    user: req.user ? { id: req.user._id, username: req.user.username } : null,
+    isAuthenticated: req.isAuthenticated(),
+    env: process.env.NODE_ENV,
+    hasGitHubCredentials: !!(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET)
+  });
 });
 
 // Routes
