@@ -155,9 +155,7 @@ app.use(session({
   saveUninitialized: false,
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/workout-tracker',
-    ttl: 24 * 60 * 60, // 1 day
-    autoRemove: 'native',
-    touchAfter: 24 * 3600 // lazy session update
+    ttl: 24 * 60 * 60 // 1 day
   }),
   cookie: {
     secure: process.env.NODE_ENV === 'production' && process.env.HTTPS === 'true',
