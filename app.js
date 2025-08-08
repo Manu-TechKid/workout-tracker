@@ -154,10 +154,13 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/workout-tracker'
+    mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/workout-tracker',
+    ttl: 24 * 60 * 60, // 1 day
+    autoRemove: 'native'
   }),
   cookie: {
-    secure: process.env.NODE_ENV === 'production' && process.env.NODE_ENV !== 'development',
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
