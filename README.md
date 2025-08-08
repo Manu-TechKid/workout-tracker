@@ -6,7 +6,7 @@ A comprehensive workout tracking web application built with Node.js, Express, Mo
 
 ## 🏃‍♂️ Live Application
 
-**Live Link:** [Workout Tracker on Render](https://workout-tracker-6y41.onrender.com)
+**Live Link:** [Workout Tracker on Render](https://workout-tracker-crud.onrender.com)
 
 ## ✨ Features
 

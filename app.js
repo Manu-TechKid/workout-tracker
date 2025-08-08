@@ -93,7 +93,9 @@ if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
   passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: process.env.GITHUB_CALLBACK_URL || "http://localhost:3000/auth/github/callback"
+    callbackURL: process.env.GITHUB_CALLBACK_URL || (process.env.NODE_ENV === 'production' 
+      ? "https://workout-tracker-6y41.onrender.com/auth/github/callback"
+      : "http://localhost:3000/auth/github/callback")
   }, async (accessToken, refreshToken, profile, done) => {
     try {
       // Check if user already exists
@@ -115,6 +117,9 @@ if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
       return done(err);
     }
   }));
+  console.log('GitHub OAuth strategy configured');
+} else {
+  console.log('GitHub OAuth credentials not provided - GitHub login disabled');
 }
 
 passport.serializeUser((user, done) => {
