@@ -1,0 +1,126 @@
+<!-- Add New Workout Form -->
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-plus me-2"></i>Add New Workout
+                </h4>
+            </div>
+            <div class="card-body">
+                {{#if error}}
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>{{error}}
+                </div>
+                {{/if}}
+                
+                <form action="/workouts" method="POST">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Workout Title *</label>
+                                <input type="text" class="form-control" id="title" name="title" 
+                                       value="{{workout.title}}" required maxlength="100">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="type" class="form-label">Type *</label>
+                                <select class="form-select" id="type" name="type" required>
+                                    <option value="">Select Type</option>
+                                    <option value="Cardio">Cardio</option>
+                                    <option value="Strength">Strength</option>
+                                    <option value="Flexibility">Flexibility</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" 
+                                  rows="3" maxlength="500" placeholder="Describe your workout...">{{workout.description}}</textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="duration" class="form-label">Duration (minutes) *</label>
+                                <input type="number" class="form-control" id="duration" name="duration" 
+                                       value="{{workout.duration}}" required min="1" max="480">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="intensity" class="form-label">Intensity</label>
+                                <select class="form-select" id="intensity" name="intensity">
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="calories" class="form-label">Calories Burned</label>
+                                <input type="number" class="form-control" id="calories" name="calories" 
+                                       value="{{workout.calories}}" min="0" max="2000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" 
+                               value="{{workout.date}}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" 
+                                  rows="3" maxlength="1000" placeholder="Additional notes about your workout...">{{workout.notes}}</textarea>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Save Workout
+                        </button>
+                        <a href="/workouts" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Set selected options based on workout data
+document.addEventListener('DOMContentLoaded', function() {
+    const workoutType = '{{workout.type}}';
+    const workoutIntensity = '{{workout.intensity}}';
+    
+    if (workoutType) {
+        const typeSelect = document.getElementById('type');
+        for (let option of typeSelect.options) {
+            if (option.value === workoutType) {
+                option.selected = true;
+                break;
+            }
+        }
+    }
+    
+    if (workoutIntensity) {
+        const intensitySelect = document.getElementById('intensity');
+        for (let option of intensitySelect.options) {
+            if (option.value === workoutIntensity) {
+                option.selected = true;
+                break;
+            }
+        }
+    }
+});
+</script>

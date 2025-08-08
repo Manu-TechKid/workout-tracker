@@ -1,0 +1,125 @@
+<!-- Home Page - Splash Screen -->
+<div class="hero-section text-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold text-primary mb-4">
+                    <i class="fas fa-dumbbell me-3"></i>
+                    Workout Tracker
+                </h1>
+                <p class="lead mb-4">
+                    Track your fitness journey, stay motivated, and achieve your goals with our comprehensive workout tracking application.
+                </p>
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-chart-line text-primary fa-3x mb-3"></i>
+                                <h5 class="card-title">Track Progress</h5>
+                                <p class="card-text">Monitor your workouts and see your progress over time.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-users text-primary fa-3x mb-3"></i>
+                                <h5 class="card-title">Community</h5>
+                                <p class="card-text">View public workouts and get inspired by others.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-search text-primary fa-3x mb-3"></i>
+                                <h5 class="card-title">Search</h5>
+                                <p class="card-text">Find specific workouts with our keyword search feature.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                    {{#if isAuthenticated}}
+                    <a href="/workouts" class="btn btn-primary btn-lg px-4 me-sm-3">
+                        <i class="fas fa-dumbbell me-2"></i>My Workouts
+                    </a>
+                    <a href="/workouts/new" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="fas fa-plus me-2"></i>Add Workout
+                    </a>
+                    {{else}}
+                    <a href="/auth/register" class="btn btn-primary btn-lg px-4 me-sm-3">
+                        <i class="fas fa-user-plus me-2"></i>Get Started
+                    </a>
+                    <a href="/auth/login" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </a>
+                    {{/if}}
+                </div>
+                
+                <div class="mt-4">
+                    <a href="/workouts/public" class="btn btn-link text-decoration-none">
+                        <i class="fas fa-eye me-2"></i>View Public Workouts
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="h3 mb-4">Why Choose Workout Tracker?</h2>
+            <ul class="list-unstyled">
+                <li class="mb-3">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <strong>Easy to Use:</strong> Simple and intuitive interface
+                </li>
+                <li class="mb-3">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <strong>Secure:</strong> Your data is protected with authentication
+                </li>
+                <li class="mb-3">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <strong>Flexible:</strong> Track various types of workouts
+                </li>
+                <li class="mb-3">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <strong>Searchable:</strong> Find workouts quickly with keyword search
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-6">
+            <h2 class="h3 mb-4">Workout Types Supported</h2>
+            <div class="row g-3">
+                <div class="col-6">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-running text-primary me-2"></i>
+                        <span>Cardio</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-dumbbell text-primary me-2"></i>
+                        <span>Strength</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-child text-primary me-2"></i>
+                        <span>Flexibility</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-futbol text-primary me-2"></i>
+                        <span>Sports</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

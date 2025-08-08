@@ -1,0 +1,44 @@
+{
+  "name": "workout-tracker",
+  "version": "1.0.0",
+  "description": "COMP 2068 Assignment 2 - JavaScript Frameworks CRUD Application",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.6.1",
+    "express": "~4.16.1",
+    "express-session": "^1.18.2",
+    "hbs": "~4.0.4",
+    "http-errors": "~1.6.3",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.17.1",
+    "morgan": "~1.9.1",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "passport",
+    "crud",
+    "workout-tracker",
+    "bootstrap"
+  ],
+  "author": "COMP 2068 Student",
+  "license": "MIT"
+}

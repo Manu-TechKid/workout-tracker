@@ -1,0 +1,114 @@
+<!-- Public Workouts Page -->
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-users me-2"></i>Public Workouts
+            </h2>
+            {{#if isAuthenticated}}
+            <a href="/workouts" class="btn btn-primary">
+                <i class="fas fa-dumbbell me-2"></i>My Workouts
+            </a>
+            {{else}}
+            <a href="/auth/login" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt me-2"></i>Login to Add Workouts
+            </a>
+            {{/if}}
+        </div>
+        
+        <!-- Search Form -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="GET" action="/workouts/public" class="row g-3">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" class="form-control" name="search" 
+                                   placeholder="Search workouts by title, description, type, or notes..." 
+                                   value="{{searchQuery}}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search me-2"></i>Search
+                            </button>
+                            {{#if searchQuery}}
+                            <a href="/workouts/public" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i>Clear
+                            </a>
+                            {{/if}}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Workouts List -->
+        {{#if workouts.length}}
+        <div class="row">
+            {{#each workouts}}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">{{title}}</h6>
+                        <span class="badge bg-primary">{{type}}</span>
+                    </div>
+                    <div class="card-body">
+                        {{#if description}}
+                        <p class="card-text">{{description}}</p>
+                        {{/if}}
+                        
+                        <div class="row text-muted small mb-3">
+                            <div class="col-6">
+                                <i class="fas fa-clock me-1"></i>{{duration}} min
+                            </div>
+                            <div class="col-6">
+                                <i class="fas fa-fire me-1"></i>{{intensity}}
+                            </div>
+                        </div>
+                        
+                        {{#if calories}}
+                        <div class="mb-3">
+                            <span class="badge bg-success">
+                                <i class="fas fa-burn me-1"></i>{{calories}} cal
+                            </span>
+                        </div>
+                        {{/if}}
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>{{createdBy.username}}
+                            </small>
+                            <small class="text-muted">
+                                <i class="fas fa-calendar me-1"></i>{{formatDate date}}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="text-center py-5">
+            <i class="fas fa-dumbbell fa-3x text-muted mb-3"></i>
+            <h4 class="text-muted">No workouts found</h4>
+            {{#if searchQuery}}
+            <p class="text-muted">Try adjusting your search terms.</p>
+            {{else}}
+            <p class="text-muted">Be the first to add a workout!</p>
+            {{/if}}
+        </div>
+        {{/if}}
+    </div>
+</div>
+
+<script>
+// Helper function to format dates
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+}
+</script>
