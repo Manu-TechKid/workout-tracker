@@ -78,11 +78,33 @@ router.get('/login', isNotAuthenticated, (req, res) => {
 });
 
 // Login POST
-router.post('/login', isNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/workouts',
-  failureRedirect: '/auth/login',
-  failureFlash: true
-}));
+router.post('/login', isNotAuthenticated, (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      console.error('Authentication error:', err);
+      req.flash('error', 'Authentication error occurred');
+      return res.redirect('/auth/login');
+    }
+    
+    if (!user) {
+      console.log('Authentication failed:', info.message);
+      req.flash('error', info.message || 'Invalid credentials');
+      return res.redirect('/auth/login');
+    }
+    
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error('Login error:', err);
+        req.flash('error', 'Login error occurred');
+        return res.redirect('/auth/login');
+      }
+      
+      console.log('User logged in successfully:', user.username);
+      req.flash('success_msg', `Welcome back, ${user.username}!`);
+      return res.redirect('/workouts');
+    });
+  })(req, res, next);
+});
 
 // GitHub OAuth login
 router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));

@@ -74,16 +74,21 @@ hbs.registerHelper('formatDateForInput', function(date) {
 // Passport configuration
 passport.use(new LocalStrategy(async (username, password, done) => {
   try {
+    console.log('Attempting login for username:', username);
     const user = await User.findOne({ username: username });
     if (!user) {
+      console.log('User not found:', username);
       return done(null, false, { message: 'Incorrect username.' });
     }
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
+      console.log('Password mismatch for user:', username);
       return done(null, false, { message: 'Incorrect password.' });
     }
+    console.log('Login successful for user:', username);
     return done(null, user);
   } catch (err) {
+    console.error('Login error:', err);
     return done(err);
   }
 }));
